@@ -6,6 +6,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
     <!-- <script src="main.js"></script> -->
+</head>
+<body>
+
     <script>
         // Ship blueprint
 class Ship {
@@ -39,17 +42,17 @@ class AttackShip extends Ship {
 
 }
 
-// //Defence Ships
-// class DefenceShip extends Ship {
-//     constructor()
-//     //continue from here
-//         super(80);
-//     }
-//     //Method reduces health
-//     decrementHealth() {
-//         this.health = this.health - 10;
-//     }
-// }
+//Defence Ships
+class DefenceShip extends Ship {
+    constructor()
+    //continue from here
+        super(80);
+    }
+    //Method reduces health
+    decrementHealth() {
+        this.health = this.health - 10;
+    }
+}
 
 const motherShip = new MotherShip();
 const attackShip1 = new AttackShip();
@@ -72,9 +75,10 @@ console.log("Attack Ship 3 ", attackShip3);
 console.log("Attack Ship 4 ", attackShip4);
 console.log("Attack Ship 5 ", attackShip5);
 
+
+
+
     </script>
-</head>
-<body>
 
     <h1>Hostile Aliens</h1>
     <button type="button" onclick="alert('Hello world!')">Click Me!</button>
