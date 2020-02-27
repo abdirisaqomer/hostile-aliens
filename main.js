@@ -23,11 +23,23 @@ class AttackShip extends Ship {
         // this adds 45 to the health in 
         super(45);
     }
-
+    //Method reduces health
     decrementHealth() {
         this.health = this.health - 12;
     } 
 
+}
+
+//Defence Ships
+class DefenceShip extends Ship {
+    constructor()
+    //continue from here
+        super(80);
+    }
+    //Method reduces health
+    decrementHealth() {
+        this.health = this.health - 10;
+    }
 }
 
 const motherShip = new MotherShip();
@@ -36,7 +48,6 @@ const attackShip2 = new AttackShip();
 const attackShip3 = new AttackShip();
 const attackShip4 = new AttackShip();
 const attackShip5 = new AttackShip();
-
 
 motherShip.decrementHealth();
 attackShip1.decrementHealth();
