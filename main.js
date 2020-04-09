@@ -1,67 +1,80 @@
-// Ship blueprint
 class Ship {
-    constructor(health) {
-        // this.name = name;
-        this.health = health;
-    }
+  constructor(name, points, pointsTaken) {
+    this.name = name;
+    this.points = points;
+    this.pointsTaken = pointsTaken;
+  }
+
+  decrement() {
+    this.points = this.points - this.pointsTaken;
+  }
+
+  displayNewPoints() {
+    document.getElementById(
+      this.name
+    ).innerHTML = `${this.name} : ${this.points}`;
+    this.decrement();
+  }
+
+  die() {
+    this.points = 0;
+    document.getElementById(this.name).innerHTML = "";
+  }
 }
 
-//Mothership Class
-class MotherShip extends Ship {
-    constructor() {
-        super(100);
-    }
+const motherShip = new Ship("MotherShip", 100, 9);
 
-    decrementHealth() {
-        this.health = this.health - 9;
-    }
-}
+const defenseShipOne = new Ship("Defence-Ship-One", 80, 10);
+const defenseShipTwo = new Ship("Defence-Ship-Two", 80, 10);
+const defenseShipThree = new Ship("Defence-Ship-Three", 80, 10);
+const defenseShipFour = new Ship("Defence-Ship-Four", 80, 10);
+const defenseShipFive = new Ship("Defence-Ship-Five", 80, 10);
 
-//Attack Ships
-class AttackShip extends Ship {
-    constructor() {
-        // this adds 45 to the health in 
-        super(45);
-    }
-    //Method reduces health
-    decrementHealth() {
-        this.health = this.health - 12;
-    } 
+const attackShipOne = new Ship("Attack-Ship-One", 45, 12);
+const attackShipTwo = new Ship("Attack-Ship-Two", 45, 12);
+const attackShipThree = new Ship("Attack-Ship-Three", 45, 12);
+const attackShipFour = new Ship("Attack-Ship-Four", 45, 12);
+const attackShipFive = new Ship("Attack-Ship-Five", 45, 12);
+const attackShipSix = new Ship("Attack-Ship-Six", 45, 12);
+const attackShipSeven = new Ship("Attack-Ship-Seven", 45, 12);
+const attackShipEight = new Ship("Attack-Ship-Eight", 45, 12);
 
-}
+const ships = [
+  motherShip,
+  defenseShipOne,
+  defenseShipTwo,
+  defenseShipThree,
+  defenseShipFour,
+  defenseShipFive,
+  attackShipOne,
+  attackShipTwo,
+  attackShipThree,
+  attackShipFour,
+  attackShipFive,
+  attackShipSix,
+  attackShipSeven,
+  attackShipOne,
+];
 
-//Defence Ships
-class DefenceShip extends Ship {
-    constructor()
-    //continue from here
-        super(80);
-    }
-    //Method reduces health
-    decrementHealth() {
-        this.health = this.health - 10;
-    }
-}
+ships.forEach((ship) => ship.displayNewPoints());
 
-const motherShip = new MotherShip();
-const attackShip1 = new AttackShip();
-const attackShip2 = new AttackShip();
-const attackShip3 = new AttackShip();
-const attackShip4 = new AttackShip();
-const attackShip5 = new AttackShip();
+const endGame = () => {
+  ships.forEach((ship) => ship.die());
+};
 
-motherShip.decrementHealth();
-attackShip1.decrementHealth();
-attackShip2.decrementHealth();
-attackShip3.decrementHealth();
-attackShip4.decrementHealth();
-attackShip5.decrementHealth();
+const displayDamage = () => {
+  const randomPosition = Math.floor(Math.random() * ships.length);
+  ships[randomPosition].displayNewPoints();
+  if (
+    ships[randomPosition].points <= 0 &&
+    ships[randomPosition].name === "MotherShip"
+  ) {
+    endGame();
+    document.getElementById(`${ships[randomPosition].name}`).innerHTML = "";
+  } else if (ships[randomPosition].points <= 0) {
+    document.getElementById(ships[randomPosition].name).innerHTML = "";
+    ships.splice(randomPosition, 1);
+  }
+};
 
-console.log("Mother Ship ",  motherShip);
-console.log("Attack Ship 1 ", attackShip1);
-console.log("Attack Ship 2 ", attackShip2);
-console.log("Attack Ship 3 ", attackShip3);
-console.log("Attack Ship 4 ", attackShip4);
-console.log("Attack Ship 5 ", attackShip5);
-
-
-
+document.getElementById("attack").addEventListener("click", displayDamage);

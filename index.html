@@ -1,88 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="main.css">
-    <!-- <script src="main.js"></script> -->
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <!-- <script src="./main.js" async defer></script> -->
+    <title>Space ship game</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      body {
+        background-color: yellow;
+      }
+
+      h1 {
+        margin-top: 40px;
+        font-size: 50px;
+      }
+
+      button {
+        margin: 20px auto;
+        display: block;
+        padding: 20px 40px;
+        border: 2px solid black;
+        font-size: 24px;
+      }
+
+      #ships {
+        height: 600px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      div {
+        background-color: red;
+        display: inline-block;
+        padding: 10px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Hostile Aliens</h1>
+    <p>Aliens Ships</p>
+    <section id="ships">
+      <div class="mother-ship">
+        <div id="MotherShip"></div>
+      </div>
+
+      <div class="defence-ships">
+        <div id="Defence-Ship-One"></div>
+        <div id="Defence-Ship-Two"></div>
+        <div id="Defence-Ship-Three"></div>
+        <div id="Defence-Ship-Four"></div>
+        <div id="Defence-Ship-Five"></div>
+      </div>
+
+      <div class="attack-ships">
+        <div id="Attack-Ship-One"></div>
+        <div id="Attack-Ship-Two"></div>
+        <div id="Attack-Ship-Three"></div>
+        <div id="Attack-Ship-Four"></div>
+        <div id="Attack-Ship-Five"></div>
+        <div id="Attack-Ship-Six"></div>
+        <div id="Attack-Ship-Seven"></div>
+        <div id="Attack-Ship-Eight"></div>
+      </div>
+    </section>
+    <button id="fire">Fire</button>
 
     <script>
-        // Ship blueprint
-class Ship {
-    constructor(health) {
-        // this.name = name;
-        this.health = health;
-    }
-}
+      class Ship {
+        constructor(name, points, pointsTaken) {
+          this.name = name;
+          this.points = points;
+          this.pointsTaken = pointsTaken;
+        }
 
-//Mothership Class
-class MotherShip extends Ship {
-    constructor() {
-        super(100);
-    }
+        decrement() {
+          this.points = this.points - this.pointsTaken;
+        }
 
-    decrementHealth() {
-        this.health = this.health - 9;
-    }
-}
+        displayNewPoints() {
+          document.getElementById(
+            this.name
+          ).innerHTML = `${this.name} : ${this.points}`;
+          this.decrement();
+        }
 
-//Attack Ships
-class AttackShip extends Ship {
-    constructor() {
-        // this adds 45 to the health in 
-        super(45);
-    }
-    //Method reduces health
-    decrementHealth() {
-        this.health = this.health - 12;
-    } 
+        die() {
+          this.points = 0;
+          document.getElementById(this.name).innerHTML = "";
+        }
+      }
 
-}
+      const motherShip = new Ship("MotherShip", 100, 9);
 
-//Defence Ships
-class DefenceShip extends Ship {
-    constructor()
-    //continue from here
-        super(80);
-    }
-    //Method reduces health
-    decrementHealth() {
-        this.health = this.health - 10;
-    }
-}
+      const defenseShipOne = new Ship("Defence-Ship-One", 80, 10);
+      const defenseShipTwo = new Ship("Defence-Ship-Two", 80, 10);
+      const defenseShipThree = new Ship("Defence-Ship-Three", 80, 10);
+      const defenseShipFour = new Ship("Defence-Ship-Four", 80, 10);
+      const defenseShipFive = new Ship("Defence-Ship-Five", 80, 10);
 
-const motherShip = new MotherShip();
-const attackShip1 = new AttackShip();
-const attackShip2 = new AttackShip();
-const attackShip3 = new AttackShip();
-const attackShip4 = new AttackShip();
-const attackShip5 = new AttackShip();
+      const attackShipOne = new Ship("Attack-Ship-One", 45, 12);
+      const attackShipTwo = new Ship("Attack-Ship-Two", 45, 12);
+      const attackShipThree = new Ship("Attack-Ship-Three", 45, 12);
+      const attackShipFour = new Ship("Attack-Ship-Four", 45, 12);
+      const attackShipFive = new Ship("Attack-Ship-Five", 45, 12);
+      const attackShipSix = new Ship("Attack-Ship-Six", 45, 12);
+      const attackShipSeven = new Ship("Attack-Ship-Seven", 45, 12);
+      const attackShipEight = new Ship("Attack-Ship-Eight", 45, 12);
 
-motherShip.decrementHealth();
-attackShip1.decrementHealth();
-attackShip2.decrementHealth();
-attackShip3.decrementHealth();
-attackShip4.decrementHealth();
-attackShip5.decrementHealth();
+      const ships = [
+        motherShip,
+        defenseShipOne,
+        defenseShipTwo,
+        defenseShipThree,
+        defenseShipFour,
+        defenseShipFive,
+        attackShipOne,
+        attackShipTwo,
+        attackShipThree,
+        attackShipFour,
+        attackShipFive,
+        attackShipSix,
+        attackShipSeven,
+        attackShipOne,
+      ];
 
-console.log("Mother Ship ",  motherShip);
-console.log("Attack Ship 1 ", attackShip1);
-console.log("Attack Ship 2 ", attackShip2);
-console.log("Attack Ship 3 ", attackShip3);
-console.log("Attack Ship 4 ", attackShip4);
-console.log("Attack Ship 5 ", attackShip5);
+      ships.forEach((ship) => ship.displayNewPoints());
 
+      const endGame = () => {
+        ships.forEach((ship) => ship.die());
+      };
 
+      const displayDamage = () => {
+        const randomPosition = Math.floor(Math.random() * ships.length);
+        ships[randomPosition].displayNewPoints();
+        if (
+          ships[randomPosition].points <= 0 &&
+          ships[randomPosition].name === "MotherShip"
+        ) {
+          endGame();
+          document.getElementById(`${ships[randomPosition].name}`).innerHTML =
+            "";
+        } else if (ships[randomPosition].points <= 0) {
+          document.getElementById(ships[randomPosition].name).innerHTML = "";
+          ships.splice(randomPosition, 1);
+        }
+      };
 
-
+      document.getElementById("fire").addEventListener("click", displayDamage);
     </script>
-
-    <h1>Hostile Aliens</h1>
-    <button type="button" onclick="alert('Hello world!')">Click Me!</button>
-    <!-- <script src="main.js"></script> -->
-</body>
-
+  </body>
 </html>
